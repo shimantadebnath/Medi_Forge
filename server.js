@@ -7,21 +7,13 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static("public")); // Serve static files from "public" directory
 
 // MongoDB Connection
-mongoose.connect("mongodb://localhost:27017/", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", () => {
-  console.log("Connected to MongoDB");
-});
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected successfully"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
 // User Schema
 const userSchema = new mongoose.Schema({
@@ -41,7 +33,6 @@ app.get("/", (req, res) => {
 // Signup Route
 app.post("/signup", async (req, res) => {
   const { name, email, password, dob } = req.body;
-  console.log({ name, email, password, dob });
 
   try {
     // Validate input
@@ -69,15 +60,13 @@ app.post("/signup", async (req, res) => {
 
     const user = await newUser.save();
 
-    // Redirect to index.html after successful signup
-    res
-      .status(201)
-      .json({
-        user: user.toObject(),
-        redirect: "/index.html",
-        message: "Signup successful",
-      });
-    // res.redirect("/")
+    // Respond with user data and redirect info
+    res.status(201).json({
+      user: user.toObject(),
+      message: "Signup successful",
+      redirect: "/index.html", // Redirect to home page after successful signup
+    });
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -90,9 +79,7 @@ app.post("/login", async (req, res) => {
   try {
     // Validate input
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ message: "Email and password are required" });
+      return res.status(400).json({ message: "Email and password are required" });
     }
 
     const user = await User.findOne({ email });
@@ -106,13 +93,13 @@ app.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // res.status(200).json({ message: 'Login successful', redirect: '/index.html' });
+    // Respond with user data and redirect info
     res.json({
       user: user.toObject(),
       message: "Login successful",
-      redirect: "/",
+      redirect: "/index.html", // Redirect to home page after successful login
     });
-    // res.redirect("/")
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
