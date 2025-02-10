@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare - Your Health, Our Mission</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #000000, #1a1a1a); /* Black gradient */
+            color: #ffffff;
+        }
+
+        /* Navigation Bar (Your Original Style) */
+        nav {
+            background: #000000; /* Black background */
+            padding: 10px 10%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin-left: auto;
+        }
+
+        nav ul li {
+            margin: 10px 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: yellow;
+        }
+
+        .user-pic {
+            width: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .sub-menu-wrap {
+            position: absolute;
+            top: 100%;
+            right: 10%;
+            width: 320px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s;
+        }
+
+        .sub-menu-wrap.open-menu {
+            max-height: 400px;
+        }
+
+        .sub-menu {
+            background: #1a1a1a; /* Dark gray background */
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-info h3 {
+            font-weight: bold;
+            margin-left: 10px;
+            color: #ffffff; /* White text */
+        }
+
+        .user-info img {
+            width: 60px;
+            border-radius: 50%;
+        }
+
+        .sub-menu hr {
+            border: 0;
+            height: 2px;
+            width: 100%;
+            background: #333; /* Dark gray line */
+            margin: 15px 0;
+        }
+
+        .sub-menu-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #cccccc; /* Light gray text */
+            margin: 12px 0;
+        }
+
+        .sub-menu-link img {
+            width: 40px;
+            background: #333; /* Dark gray background */
+            border-radius: 50%;
+            padding: 8px;
+            margin-right: 15px;
+        }
+
+        .sub-menu-link span {
+            font-size: 22px;
+            transition: transform 0.5s;
+        }
+
+        .sub-menu-link:hover span {
+            transform: translate(5px);
+        }
+
+        .sub-menu-link:hover p {
+            font-weight: 600;
+        }
+
+        /* Split-Screen Layout */
+        .split-container {
+            display: flex;
+            flex: 1;
+            margin-top: 80px;
+        }
+
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+        }
+
+        .left-section h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .left-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #e0e0e0; /* Light gray text */
+        }
+
+        .left-section .cta-button {
+            background-color: #4CAF50; /* Green button */
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .left-section .cta-button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            backdrop-filter: blur(10px);
+        }
+
+        .right-section img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Features Section */
+        .features-section {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 50px 10%;
+            background: rgba(0, 0, 0, 0.3); /* Semi-transparent black */
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            width: 250px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: #e0e0e0; /* Light gray text */
+        }
+    </style>
+    <script>
+        window.addEventListener("DOMContentLoaded", ()=> {
+            const user = JSON.parse(localStorage.getItem("user"));
+            console.log(user);
+            document.getElementById("name").innerText = user.name;
+            document.getElementById("email").innerText = user.email;
+            document.getElementById("age").innerText = new Date().getFullYear() - parseFloat(user.dob.split("-")[0]);
+        })
+    </script>
+</head>
+<body>
+    <!-- Navigation Bar (Your Original Style) -->
+    <nav>
+        <h2 class="logo">MediForge</h2>
+        <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/indexo.html">Features</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/signup.html">Sign up</a></li>
+            <li><a href="/login.html">Login</a></li>
+        </ul>
+        <img src="/image/profile.jpg" alt="User Profile" class="user-pic" onclick="toggleMenu()">
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="/image/profile.jpg" alt="User">
+                    <h3 id="name"></h3>
+                </div>
+                <hr>
+                <a href="#" class="sub-menu-link">
+                    <img src="/image/profile.png" alt="Profile">
+                    <p>Email: </p>
+                    <span id="email" style="font-size: 1rem;">  </span>
+                </a>
+                <a href="#" class="sub-menu-link">
+                    <img src="/image/setting.png" alt="Settings">
+                    <p>Age: </p>
+                    <span id="age" style="font-size: 1rem;"> </span>
+                </a>  
+                <a href="/support.html" class="sub-menu-link">
+                    <img src="/image/help.png" alt="Help">
+                    <p>Help & Support</p>
+                    <span>  </span>
+                </a>
+                <button class="sub-menu-link" style="display: flex; border: none; outline: none; background: transparent;" onclick="localStorage.clear(); window.location.reload();">
+                    <img src="/image/logout.png" alt="Logout">
+                    <p>Logout</p>
+                    <span>  </span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Split-Screen Layout -->
+    <div class="split-container">
+        <div class="left-section">
+            <h1>Take Care Of Your Own Health</h1>
+            <p>Mediforge is a web app that helps users detect diseases by analyzing uploaded images and described symptoms. Its goal is to empower people to take control of their health with AI-driven insights.
+           </p>
+            <a href="/indexo.html">  <button class="cta-button">Explore Services</button> </a> 
+        </div>
+        <div class="right-section">
+            <img src="/image/doctor.jpg" alt="Healthcare Illustration">
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+        <div class="feature-card" style="cursor: pointer;" onclick="location.assign('https://www.goodreads.com/shelf/show/health')">
+            <img src="/image/book.png" alt="Telemedicine">
+            <h3>Educational Resources</h3>
+            <p>Consult with doctors online from the comfort of your home.</p>
+        </div>
+        <div class="feature-card" style="cursor: pointer;" onclick="location.assign('https://sasthyaseba.com/search?type=doctor&method=ON_PREMISES')">
+            <img src="/image/Appointment.png" alt="Appointments">
+            <h3>Book Appointments</h3>
+            <p>Schedule appointments with specialists in just a few clicks.</p>
+        </div>
+        <div class="feature-card" style="cursor: pointer;" onclick="location.assign('/maps')">
+            <img src="/image/hospital1.png" alt="Pharmacy">
+            <h3>Nearby Hospitals</h3>
+            <p>Find Your nearby hospitals in few minites</p>
+        </div>
+        <div class="feature-card" style="cursor: pointer;" onclick="location.assign('/alarm')">
+            <img src="/image/timer.png" alt="Health Records">
+            <h3>Medicine Timer</h3>
+            <p>Take medicine timely to stay fit.</p>
+        </div>
+    </div>
+
+    <script>
+        let subMenu = document.getElementById("subMenu");
+
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
+        body.addEventListener("click", ()=> {
+            if(subMenu.classList.contains("open-menu")) {
+                subMenu.classList.remove("open-menu");
+            }
+        });
+    </script>
+</body>
+</html>

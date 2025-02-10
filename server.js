@@ -1,0 +1,123 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const cors = require("cors");
+
+const app = express();
+
+// Middleware
+app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(express.static("public")); // Serve static files from "public" directory
+
+// MongoDB Connection
+mongoose.connect("mongodb://localhost:27017/", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", () => {
+  console.log("Connected to MongoDB");
+});
+
+// User Schema
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  dob: { type: Date, required: true },
+});
+
+const User = mongoose.model("User", userSchema);
+
+// Root Route
+app.get("/", (req, res) => {
+  res.redirect("/login.html"); // Redirect root to login page
+});
+
+// Signup Route
+app.post("/signup", async (req, res) => {
+  const { name, email, password, dob } = req.body;
+  console.log({ name, email, password, dob });
+
+  try {
+    // Validate input
+    if (!name || !email || !password || !dob) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    // Hash password
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // Save new user
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+      dob: new Date(dob),
+    });
+
+    const user = await newUser.save();
+
+    // Redirect to index.html after successful signup
+    res
+      .status(201)
+      .json({
+        user: user.toObject(),
+        redirect: "/index.html",
+        message: "Signup successful",
+      });
+    // res.redirect("/")
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Login Route
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Validate input
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Email and password are required" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Compare passwords
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // res.status(200).json({ message: 'Login successful', redirect: '/index.html' });
+    res.json({
+      user: user.toObject(),
+      message: "Login successful",
+      redirect: "/",
+    });
+    // res.redirect("/")
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Start the server
+const PORT = process.env.PORT || 5500;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediforge</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: url('/image/blue.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ba8258;
+            position: relative;
+            padding-top: 50px; /* Adjust as needed for spacing */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            background: black;
+            padding: 10px 10%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 2;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .user-pic {
+            width: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 30px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin-left: auto; /* This shifts the nav links to the right side */
+        }
+
+        nav ul li {
+            margin: 10px 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: yellow;
+        }
+
+        .sub-menu-wrap {
+            position: absolute;
+            top: 100%;
+            right: 10%;
+            width: 320px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s;
+        }
+
+        .sub-menu-wrap.open-menu {
+            max-height: 400px;
+        }
+
+        .sub-menu {
+            background: white;
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-info h3 {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .user-info img {
+            width: 60px;
+            border-radius: 50%;
+        }
+
+        .sub-menu hr {
+            border: 0;
+            height: 2px;
+            width: 100%;
+            background: #ccc;
+            margin: 15px 0;
+        }
+
+        .sub-menu-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #525252;
+            margin: 12px 0;
+        }
+
+        .sub-menu-link img {
+            width: 40px;
+            background: #e5e5e5;
+            border-radius: 50%;
+            padding: 8px;
+            margin-right: 15px;
+        }
+
+        .sub-menu-link span {
+            font-size: 22px;
+            transition: transform 0.5s;
+        }
+
+        .sub-menu-link:hover span {
+            transform: translate(5px);
+        }
+
+        .sub-menu-link:hover p {
+            font-weight: 600;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            z-index: 1;
+            margin-top: 100px; /* Adjust as needed for spacing */
+        }
+
+        .card {
+            background-color: rgba(45, 39, 39, 0.43);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.77);
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .card img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .card h2 {
+            font-size: 1.3em;
+            margin: 10px 0;
+        }
+
+        .card p {
+            margin: 15px 0;
+            color: #ffffff;
+        }
+
+        .card a button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .card a button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+
+<script>
+    window.addEventListener("DOMContentLoaded", ()=> {
+        const user = JSON.parse(localStorage.getItem("user"));
+        console.log(user);
+        document.getElementById("name").innerText = user.name;
+        document.getElementById("email").innerText = user.email;
+        document.getElementById("age").innerText = new Date().getFullYear() - parseFloat(user.dob.split("-")[0]);
+    })
+</script>
+
+
+</head>
+<body>
+    <nav>
+        <h2 class="logo">Mediforge</h2>
+        <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/indexo.html">Features</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/signup.html">Sign up</a></li>
+            <li><a href="/login.html">Login</a></li>
+        </ul>
+        <img src="/image/profile.jpg" alt="User Profile" class="user-pic" onclick="toggleMenu()">
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="/image/profile.jpg" alt="User">
+                    <h3 id="name"></h3>
+                </div>
+                <hr>
+                <a href="#" class="sub-menu-link">
+                    <img src="/image/profile.png" alt="Profile">
+                    <p>Email: </p>
+                    <span id="email" style="font-size: 1rem;">  </span>
+                </a>
+                <a href="#" class="sub-menu-link">
+                    <img src="/image/setting.png" alt="Settings">
+                    <p>Age: </p>
+                    <span id="age" style="font-size: 1rem;"> </span>
+                </a>  
+                <a href="/support.html" class="sub-menu-link">
+                    <img src="/image/help.png" alt="Help">
+                    <p>Help & Support</p>
+                    <span>  </span>
+                </a>
+                <button class="sub-menu-link" style="display: flex; border: none; outline: none; background: transparent;" onclick="localStorage.clear(); window.location.reload();">
+                    <img src="/image/logout.png" alt="Logout">
+                    <p>Logout</p>
+                    <span>  </span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <img src="/image/shimanta.jpg" alt="Shimanta Deb Nath">
+            <h2>Shimanta Deb Nath</h2>
+            <p>Email: shimanta.1675@gmail.com</p>
+            <p>Phone: +880 1865871109</p>
+            <a href="https://www.facebook.com/shimanta75"><button>Contact</button></a>
+        </div>
+        <div class="card">
+            <img src="/image/porosh.jpg" alt="Soumitro Porosh">
+            <h2>Soumitro Porosh</h2>
+            <p>Email: soumitroporosh@gmail.com</p>
+            <p>Phone: +880 1786900036</p>
+            <a href="https://www.facebook.com/soumitroranzen.porash"><button>Contact</button></a>
+        </div>
+        <div class="card">
+            <img src="/image/sujon.png" alt="Sujon Kumer">
+            <h2>Sujon Kumer</h2>
+            <p>Email: sujonkumar0808@gmail.com</p>
+            <p>Phone: +880 1795580585</p>
+            <a href="https://www.facebook.com/sujon.kumar.9210256"><button>Contact</button></a>
+        </div>
+    </div>
+
+    <script>
+        let subMenu = document.getElementById("subMenu");
+
+        function toggleMenu(){
+            subMenu.classList.toggle("open-menu");
+        }
+    </script>
+</body>
+</html>

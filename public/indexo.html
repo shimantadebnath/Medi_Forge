@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Design Landing Page</title>
+    <link rel="stylesheet" href="/new project/style1.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      /*for ligin/signup */
+
+      .navbar .btn-get-started:hover {
+        background: #005f8a;
+      }
+
+      .main-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 50px;
+        align-items: center;
+        height: calc(100vh - 60px);
+        padding: 0 20px;
+      }
+
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Open Sans", sans-serif;
+      }
+      /*for home page*/
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        width: 100%;
+        padding: 0 10px;
+        background: url("/image/home.jpg") no-repeat center center fixed;
+        background-size: cover;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        /* width: 100%;
+  height: 100%; */
+        background-color: rgba(0, 0, 0, 0);
+      }
+
+      .wrapper {
+        width: 400px;
+        border-radius: 8px;
+        padding: 30px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(9px);
+        -webkit-backdrop-filter: blur(9px);
+        position: relative;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+
+      .input-field {
+        position: relative;
+        border-bottom: 2px solid #ccc;
+        margin: 15px 0;
+      }
+
+      .input-field label {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 16px;
+        pointer-events: none;
+        transition: 0.15s ease;
+      }
+
+      .input-field input {
+        width: 100%;
+        height: 40px;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        color: #fff;
+      }
+
+      .input-field input:focus ~ label,
+      .input-field input:valid ~ label {
+        font-size: 0.8rem;
+        top: 10px;
+        transform: translateY(-120%);
+      }
+
+      button {
+        background: #fff;
+        color: #000;
+        font-weight: 600;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 16px;
+        border: 2px solid transparent;
+        transition: 0.3s ease;
+      }
+
+      button:hover {
+        color: #fff;
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .register {
+        text-align: center;
+        margin-top: 30px;
+        color: #fff;
+      }
+
+      .wrapper a {
+        color: #efefef;
+        text-decoration: none;
+      }
+
+      .wrapper a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script src="bmi.js"></script>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        console.log(user);
+        document.getElementById("name").innerText = user.name;
+        document.getElementById("email").innerText = user.email;
+        document.getElementById("age").innerText =
+          new Date().getFullYear() - parseFloat(user.dob.split("-")[0]);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="hero">
+      <nav>
+        <h2 class="logo">Mediforge</h2>
+        <ul>
+          <li><a href="/index.html"> Home </a></li>
+          <li><a href="/indexo.html"> Features </a></li>
+          <li><a href="/about.html"> About </a></li>
+          <!--   <li> <a href="#"> Contact </a></li>   -->
+          <li><a href="/signup.html"> Sign up </a></li>
+          <li><a href="/login.html"> Login </a></li>
+        </ul>
+        <img src="/image/profile.jpg" class="user-pic" onclick="toggleMenu()" />
+
+        <div class="sub-menu-wrap" id="subMenu" style="z-index: 100">
+          <div class="sub-menu">
+            <div class="user-info">
+              <img src="/image/profile.jpg" alt="User" />
+              <h3 id="name"></h3>
+            </div>
+            <hr />
+
+            <a href="#" class="sub-menu-link">
+              <img src="/image/profile.png" alt="Profile" />
+              <p>Email:</p>
+              <span id="email" style="font-size: 1rem"></span>
+            </a>
+
+            <a href="#" class="sub-menu-link">
+              <img src="/image/setting.png" alt="Settings" />
+              <p>Age:</p>
+              <span id="age" style="font-size: 1rem"> </span>
+            </a>
+
+            <a href="/support.html" class="sub-menu-link">
+              <img src="image/help.png" alt="Help" />
+              <p>Help & Support</p>
+              <span>  </span>
+            </a>
+
+            <button
+              class="sub-menu-link"
+              style="
+                display: flex;
+                border: none;
+                outline: none;
+                background: transparent;
+                padding: 0;
+                font-weight: 400;
+              "
+              onclick="localStorage.clear(); window.location.reload();"
+            >
+              <img src="/image/logout.png" alt="Logout" />
+              <p>Logout</p>
+              <span>  </span>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="main-content" style="position: relative">
+      <div class="wrapper">
+        <form>
+          <h2>BMI Calculator</h2>
+          <div class="input-field">
+            <input type="number" id="height" name="height" required="" />
+            <label for="height">Height (cm)</label>
+            <div
+              class="sandvpn-logo"
+              style="
+                background-image: url('moz-extension://d84c4b76-98af-4480-a860-491ee9c20d7d/logo192.png') !important;
+                background-size: 22px 22px !important;
+                cursor: pointer !important;
+                width: 22px !important;
+                height: 22px !important;
+                position: absolute !important;
+                padding: 0px !important;
+                margin-top: auto !important;
+                z-index: 2 !important;
+                animation-name: none;
+                top: 9px !important;
+                left: 316px !important;
+              "
+            ></div>
+          </div>
+          <div class="input-field">
+            <input type="number" id="weight" name="weight" required="" />
+            <label for="password">Weight(kg)</label>
+          </div>
+          <button type="button" onclick="calculateBMI()">Calculate</button>
+          <div class="register"><div id="result"></div></div>
+        </form>
+      </div>
+      <div class="wrapper">
+        <h2>Health Tips</h2>
+        <div class="description" id="bmiCategory">
+          Your BMI category will appear here.
+        </div>
+      </div>
+      <div class="">
+        <br />
+        <br />
+      </div>
+      <div style="position: relative; right: 50px">
+        <iframe
+          src="botsection.html"
+          frameborder="1"
+          scrolling="yes"
+          width="300px"
+          height="500px"
+          style="
+            overflow-y: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            border-radius: 20px;
+          "
+        ></iframe>
+      </div>
+    </div>
+
+    <style>
+      #bmiCategory {
+        color: white;
+      }
+    </style>
+
+    <script>
+      let subMenu = document.getElementById("subMenu");
+
+      function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
+      }
+    </script>
+  </body>
+</html>

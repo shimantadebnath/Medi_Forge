@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediforge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: url('/image/6.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #525252;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+          
+            z-index: -1;
+        }
+
+        nav {
+            background: black;
+            padding: 10px 10%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin-left: auto;
+        }
+
+        nav ul li {
+            margin: 10px 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: yellow;
+        }
+
+        .user-pic {
+            width: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .sub-menu-wrap {
+            position: absolute;
+            top: 100%;
+            right: 10%;
+            width: 320px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s;
+        }
+
+        .sub-menu-wrap.open-menu {
+            max-height: 400px;
+        }
+
+        .sub-menu {
+            background: white;
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-info h3 {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .user-info img {
+            width: 60px;
+            border-radius: 50%;
+        }
+
+        .sub-menu hr {
+            border: 0;
+            height: 2px;
+            width: 100%;
+            background: #ccc;
+            margin: 15px 0;
+        }
+
+        .sub-menu-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #525252;
+            margin: 12px 0;
+        }
+
+        .sub-menu-link img {
+            width: 40px;
+            background: #e5e5e5;
+            border-radius: 50%;
+            padding: 8px;
+            margin-right: 15px;
+        }
+
+        .sub-menu-link span {
+            font-size: 22px;
+            transition: transform 0.5s;
+        }
+
+        .sub-menu-link:hover span {
+            transform: translate(5px);
+        }
+
+        .sub-menu-link:hover p {
+            font-weight: 600;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            z-index: 1;
+            margin-top: 120px;
+            width: 80%;
+        }
+
+        .section {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 45%;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .section img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .section h2 {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .section p {
+            color: #555;
+            margin: 15px 0;
+        }
+
+        .section button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .section button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <h2 class="logo">Mediforge</h2>
+        <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/indexo.html">Features</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/signup.html">Sign up</a></li>
+            <li><a href="/login.html">Login</a></li>
+        </ul>
+        <img src="/image/profile.jpg" alt="User Profile" class="user-pic" onclick="toggleMenu()">
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="/image/profile.jpg" alt="User">
+                    <h3>USER NAME</h3>
+                </div>
+                <hr>
+                <a href="#" class="sub-menu-link">
+                    <img src="/image/profile.png" alt="Profile">
+                    <p>Email</p>
+                    <span>  </span>
+                </a>
+                <!--    <a href="#" class="sub-menu-link">
+                    <img src="/image/setting.png" alt="Settings">
+                    <p>Settings and Privacy</p>
+                    <span> > </span>
+                </a>   -->
+                <a href="/support.html" class="sub-menu-link">
+                    <img src="/image/help.png" alt="Help">
+                    <p>Help & Support</p>
+                    <span> > </span>
+                </a>
+                <a href="#" class="sub-menu-link">
+                    <img src="/image/logout.png" alt="Logout">
+                    <p>Logout</p>
+                    <span> > </span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="section">
+            <img src="/image/heart.png" alt="Heart Rate">
+            <h2>Heart Rate</h2>
+            <p>Aliquam ut lorem scelerisque, consequat mi quis, scelerisque massa.</p>
+            <button>Learn More</button>
+        </div>
+        <div class="section">
+            <img src="/image/lab.png" alt="Lab Test">
+            <h2>Lab Test</h2>
+            <p>Cum sociis natoque penatibus et magnis dis parturient liquam montes liquam montes.</p>
+            <button>Learn More</button>
+        </div>
+        <div class="section">
+            <img src="/image/stethoscope.png" alt="Symptom Check">
+            <h2>Symptom Check</h2>
+            <p>Suspendisse mattis tristique libero at placerat. Nullam diam risus.</p>
+            <button>Learn More</button>
+        </div>
+        <div class="section">
+            <img src="/image/help.png" alt="Online Help">
+            <h2>Online Help</h2>
+            <p>Pellentesque quam metus, venenatis quis eleifend sit amet, porttitor.</p>
+            <button>Learn More</button>
+        </div>
+    </div>
+    
+    <script>
+        let subMenu = document.getElementById("subMenu");
+
+        function toggleMenu(){
+            subMenu.classList.toggle("open-menu");
+        }
+    </script>
+</body>
+</html>

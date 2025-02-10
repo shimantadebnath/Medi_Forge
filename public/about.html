@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediforge - About</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: url('/image/aboutbg.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    position: relative;
+}
+
+        nav {
+            background: rgba(16, 15, 15, 0.9);
+            padding: 10px 10%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin-left: auto;
+        }
+
+        nav ul li {
+            margin: 10px 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+
+        .user-pic {
+            width: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .user-pic:hover {
+            transform: scale(1.1);
+        }
+
+        .sub-menu-wrap {
+            position: absolute;
+            top: 100%;
+            right: 10%;
+            width: 320px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s;
+        }
+
+        .sub-menu-wrap.open-menu {
+            max-height: 400px;
+        }
+
+        .sub-menu {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-info h3 {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .user-info img {
+            width: 60px;
+            border-radius: 50%;
+        }
+
+        .sub-menu hr {
+            border: 0;
+            height: 2px;
+            width: 100%;
+            background: #ccc;
+            margin: 15px 0;
+        }
+
+        .sub-menu-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #525252;
+            margin: 12px 0;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .sub-menu-link:hover {
+            transform: translateX(10px);
+            color: #333;
+        }
+
+        .sub-menu-link img {
+            width: 40px;
+            background: #e5e5e5;
+            border-radius: 50%;
+            padding: 8px;
+            margin-right: 15px;
+        }
+
+        .sub-menu-link span {
+            font-size: 22px;
+            transition: transform 0.5s;
+        }
+
+        .sub-menu-link:hover span {
+            transform: translate(5px);
+        }
+
+        .content {
+            margin-top: 100px;
+            padding: 40px 20px;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .content h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #d09e3d;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .card {
+    background: rgba(193, 190, 190, 0.3); /* More transparency */
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            background: rgb(138, 135, 135);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .card ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            margin: 10px 0;
+            color: #f0f0f0;
+            font-size: 0.95rem;
+        }
+
+        .card ul li::before {
+            content: "•";
+            color: #ffcc00;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+    </style>
+       <script>
+        window.addEventListener("DOMContentLoaded", ()=> {
+            const user = JSON.parse(localStorage.getItem("user"));
+            console.log(user);
+            document.getElementById("name").innerText = user.name;
+            document.getElementById("email").innerText = user.email;
+            document.getElementById("age").innerText = new Date().getFullYear() - parseFloat(user.dob.split("-")[0]);
+        })
+    </script>
+</head>
+<body>
+    <nav>
+        <h2 class="logo">Mediforge</h2>
+        <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/indexo.html">Features</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/signup.html">Sign up</a></li>
+            <li><a href="/login.html">Login</a></li>
+        </ul>
+        <img src="/image/profile.jpg" alt="User Profile" class="user-pic" onclick="toggleMenu()">
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="/image/profile.jpg" alt="User">
+                    <h3 id="name"></h3>
+                </div>
+                <hr>
+                <a href="#" class="sub-menu-link">
+                    <img src="/image/profile.png" alt="Profile">
+                    <p>Email: </p>
+                    <span id="email" style="font-size: 1rem;">  </span>
+                </a>
+                <a href="#" class="sub-menu-link">
+                    <img src="/image/setting.png" alt="Settings">
+                    <p>Age: </p>
+                    <span id="age" style="font-size: 1rem;"> </span>
+                </a>  
+                <a href="/support.html" class="sub-menu-link">
+                    <img src="/image/help.png" alt="Help">
+                    <p>Help & Support</p>
+                    <span> </span>
+                </a>
+                <button class="sub-menu-link" style="display: flex; border: none; outline: none; background: transparent;" onclick="localStorage.clear(); window.location.reload();">
+                    <img src="/image/logout.png" alt="Logout">
+                    <p>Logout</p>
+                    <span>  </span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <h1>About Mediforge</h1>
+        <div class="card-container">
+            <div class="card">
+                <h2>AI-Powered Disease Detection</h2>
+                <p>Upload affected images and describe symptoms for instant analysis. Get insights into potential conditions and next steps.</p>
+            </div>
+            <div class="card">
+                <h2>Appointments & Medications</h2>
+                <p>Manage doctor appointments and prescriptions easily. Set reminders for medications and follow-up visits.</p>
+            </div>
+            <div class="card">
+                <h2>Tools & Programming Language</h2>
+                <ul>
+                    <li>Frontend: HTML, CSS, JavaScript</li>
+                    <li>Backend: Node.js, Java, SQL, MongoDB</li>
+                    <li>AI/ML Integration for image-based disease detection</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h2>Personalized Health Profiles</h2>
+                <p>Track your medical history, health metrics, and lifestyle habits. Receive customized health recommendations and reminders.</p>
+            </div>
+            <div class="card">
+                <h2>Educational Resources</h2>
+                <p>Access a library of trusted medical articles, videos, and tips to make informed decisions.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let subMenu = document.getElementById("subMenu");
+
+        function toggleMenu(){
+            subMenu.classList.toggle("open-menu");
+        }
+    </script>
+</body>
+</html>

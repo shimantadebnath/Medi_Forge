@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/about.css">
+</head>
+<body>
+    <div class="hero">
+        <nav>
+            <h2 class="logo">Mediforge</h2>
+            <ul>
+                <li> <a href="/index.html"> Home </a></li>
+                <li> <a href="/indexo.html"> Features </a></li>
+                <li> <a href="/about.html"> About </a></li>
+          <!--  <li> <a href="#"> Contact </a></li> -->
+                <li> <a href="/signup.html"> Sign up </a></li>
+                <li> <a href="/login.html"> Login </a></li>
+            </ul>
+            <img src="/image/profile.jpg" class="user-pic" onclick="toggleMenu()">
+
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="/image/profile.jpg">
+                        <h3> USER NAME </h3>
+                    </div>
+                    <hr>
+
+                    <a href="#" class="sub-menu-link">
+                        <img src="/image/profile.png">
+                        <p>Email</p>
+                        <span>  </span>
+                    </a>
+
+                     <!--    <a href="#" class="sub-menu-link">
+                    <img src="/image/setting.png" alt="Settings">
+                    <p>Settings and Privacy</p>
+                    <span> > </span>
+                </a>   -->
+                    <a href="/support.html" class="sub-menu-link">
+                        <img src="/image/help.png">
+                        <p>Help & Support</p>
+                        <span> > </span>
+                    </a>
+
+                    <a href="#" class="sub-menu-link">
+                        <img src="/image/logout.png">
+                        <p>Logout</p>
+                        <span> > </span>
+                    </a>
+
+                </div>
+            </div>
+
+        </nav>
+    </div>
+
+<script>
+    let subMenu = document.getElementById("subMenu");
+    
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+</body>
+</html>
